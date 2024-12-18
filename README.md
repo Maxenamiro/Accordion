@@ -1,6 +1,6 @@
 # accordeon
 
-# This repo contains different samples of PnP React Controls. Following are the toolchain used.
+This repo contains different samples of PnP React Controls. Following are the toolchain used.
 - Yo - v4.3.1
 - Gulp - CLI version: 3.0.0
          Local version: 4.0.2
@@ -14,7 +14,10 @@
 
 Short summary on functionality and used technologies.
 
-[picture of the solution in action, if possible]
+As you see, we can`t see list in preview, only when editing
+
+<img width="1199" alt="Screenshot 2024-12-18 at 21 46 34" src="https://github.com/user-attachments/assets/136de1e0-384b-41ef-b3ab-d01f8ba25472" />
+<img width="1201" alt="Screenshot 2024-12-18 at 21 46 45" src="https://github.com/user-attachments/assets/7674443b-157e-4b19-8d57-04bed8aadc4d" />
 
 ## Used SharePoint Framework Version
 
