@@ -1,5 +1,15 @@
 # accordeon
 
+# This repo contains different samples of PnP React Controls. Following are the toolchain used.
+- Yo - v4.3.1
+- Gulp - CLI version: 3.0.0
+         Local version: 4.0.2
+- Node - v18.18.0
+- npm - v9.8.1
+- SharePoint Generator - v4.3.1
+- @pnp/spfx-controls-react - v3.2.0
+- @pnp/sp - v2.5.0
+
 ## Summary
 
 Short summary on functionality and used technologies.
