@@ -1,0 +1,21 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "18.18.0",
+    "sdksVersions": {
+      "@microsoft/microsoft-graph-client": "3.0.2",
+      "@microsoft/teams-js": "2.24.0"
+    },
+    "version": "1.20.0",
+    "libraryName": "accordeon",
+    "libraryId": "fcfb1525-faad-4db3-8777-f50f9eb1a536",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "accordeon",
+    "solutionShortDescription": "accordeon description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}
