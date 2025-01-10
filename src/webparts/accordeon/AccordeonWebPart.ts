@@ -11,11 +11,14 @@ import { IReadonlyTheme } from '@microsoft/sp-component-base'
 import * as strings from 'AccordeonWebPartStrings'
 import Accordeon from './components/Accordeon'
 import { IAccordeonProps } from './components/IAccordeonProps'
-
+import "@pnp/sp/webs";
+import "@pnp/sp/lists";
 import {
 	PropertyFieldListPicker,
 	PropertyFieldListPickerOrderBy,
 } from '@pnp/spfx-property-controls'
+// import { update } from '@microsoft/sp-lodash-subset'
+import spservices from '../spServices/spservices'
 
 export interface IAccordeonWebPartProps {
 	description: string
@@ -26,8 +29,21 @@ export interface IAccordeonWebPartProps {
 export default class AccordeonWebPart extends BaseClientSideWebPart<IAccordeonWebPartProps> {
 	private _isDarkTheme: boolean = false
 	private _environmentMessage: string = ''
+	// private _sp: SPFI
+	private spService: spservices;
 
-	public render(): void {
+	public async render(): Promise<void> {
+		let result: any;
+		console.log(this.properties);
+		console.log("Context : ", this.context.pageContext.site.absoluteUrl);
+		
+		
+		if (this.properties.list) {
+			result = await this.spService.getAccordeonItems("https://aonicdemotenant.sharepoint.com/sites/Sandbox", this.properties.list);
+			console.log("Result : ", result);
+			
+		}
+
 		const element: React.ReactElement<IAccordeonProps> = React.createElement(
 			Accordeon,
 			{
@@ -38,6 +54,7 @@ export default class AccordeonWebPart extends BaseClientSideWebPart<IAccordeonWe
 				userDisplayName: this.context.pageContext.user.displayName,
 				context: this.context,
 				listGuid: this.properties.list,
+				items: result ? result : undefined,
 				title: this.properties.title,
 				displayMode: this.displayMode,
 				updateProperty: (value: string) => {
@@ -52,10 +69,30 @@ export default class AccordeonWebPart extends BaseClientSideWebPart<IAccordeonWe
 	}
 
 	protected onInit(): Promise<void> {
+		// this._sp = getSP(this.context)
+		this.spService = new spservices(this.context);
+
 		return this._getEnvironmentMessage().then((message) => {
 			this._environmentMessage = message
 		})
 	}
+
+	// private getAccordeonItems = async (): Promise<any> => {
+	// 	console.log(this.properties.list);
+		
+	// 	try {
+	// 		const items = await this._sp.web.lists
+	// 			.getById(this.properties.list)
+	// 			.items.select()
+	// 			.orderBy('Letter', true)
+	// 			.orderBy('Title', true)()
+	// 		console.log('Fetched items:', items)
+	// 		// setAccordeonItems(items)
+	// 		return items;
+	// 	} catch (error) {
+	// 		console.error('Error fetching items:', error)
+	// 	}
+	// }
 
 	private _getEnvironmentMessage(): Promise<string> {
 		if (!!this.context.sdks.microsoftTeams) {
@@ -125,6 +162,10 @@ export default class AccordeonWebPart extends BaseClientSideWebPart<IAccordeonWe
 		return Version.parse('1.0')
 	}
 
+	protected onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any): void {
+		console.log(propertyPath, newValue);
+	}
+
 	protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
 		return {
 			pages: [
@@ -145,7 +186,9 @@ export default class AccordeonWebPart extends BaseClientSideWebPart<IAccordeonWe
 									includeHidden: false,
 									orderBy: PropertyFieldListPickerOrderBy.Title,
 									disabled: false,
+									webAbsoluteUrl: "https://aonicdemotenant.sharepoint.com/sites/sandbox", 
 									onPropertyChange: this.onPropertyPaneFieldChanged.bind(this),
+									// onPropertyChange: this.myFunction.bind(this),
 									properties: this.properties,
 									context: this.context as any,
 									// onGetErrorMessage: null,

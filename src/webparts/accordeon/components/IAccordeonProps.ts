@@ -11,5 +11,6 @@ export interface IAccordeonProps {
   listGuid: string;
   title: string;
   displayMode: DisplayMode;
+  items: any
   updateProperty: (value: string) => void;
 }

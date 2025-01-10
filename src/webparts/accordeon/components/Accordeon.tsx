@@ -1,39 +1,27 @@
 import * as React from 'react'
 import type { IAccordeonProps } from './IAccordeonProps'
-import { SPFI } from '@pnp/sp'
+// import { SPFI } from '@pnp/sp'
 import { useEffect, useState } from 'react'
 import { IAccordeon } from '../../../interfaces'
-import { getSP } from '../../../pnpjsConfig'
+// import { getSP } from '../../../pnpjsConfig'
 import '@pnp/sp/webs'
 import '@pnp/sp/items'
 import { Accordion } from '@pnp/spfx-controls-react'
 import { Placeholder } from '@pnp/spfx-controls-react/lib/Placeholder'
 import { WebPartTitle } from '@pnp/spfx-controls-react/lib/WebPartTitle'
+import styles from './Accordeon.module.scss'
+import { DefaultButton } from '@fluentui/react'
 
 const Accordeon: React.FC<IAccordeonProps> = (
 	props: IAccordeonProps
 ): JSX.Element => {
-	const _sp: SPFI = getSP(props.context)
 
 	const [accordeonItems, setAccordeonItems] = useState<IAccordeon[]>([])
 
-	const getAccordeonItems = async (): Promise<void> => {
-		try {
-			const items = await _sp.web.lists
-				.getById(props.listGuid)
-				.items.select()
-				.orderBy('Letter', true)
-				.orderBy('Title', true)()
-			console.log('Fetched items:', items)
-			setAccordeonItems(items)
-		} catch (error) {
-			console.error('Error fetching items:', error)
-		}
-	}
-
 	useEffect(() => {
-		if (props.listGuid && props.listGuid !== '') {
-			getAccordeonItems().catch((err) => console.error(err))
+		if (props.items) {
+			console.log("XXXX : ", props.items);
+			setAccordeonItems(props.items)
 		}
 	}, [props])
 
@@ -44,10 +32,14 @@ const Accordeon: React.FC<IAccordeonProps> = (
 				title={props.title}
 				updateProperty={props.updateProperty}
 			/>
-			{props.listGuid ? (
+			{props.items ? (
 				accordeonItems.map((o: IAccordeon, index: number) => {
 					return (
-						<Accordion key={index} title={o.Title} defaultCollapsed={true}>
+						<Accordion
+							key={index}
+							title={o.Title}
+							className={styles.accordeonStyle}
+							defaultCollapsed={true}>
 							{o.Body}
 						</Accordion>
 					)
@@ -55,12 +47,26 @@ const Accordeon: React.FC<IAccordeonProps> = (
 			) : (
 				<Placeholder
 					iconName='Edit'
+					contentClassName={styles.contentStyles}
 					iconText='Configure your web part'
 					description='Please configure the web part.'
 					buttonLabel='Configure'
 					onConfigure={() => props.context.propertyPane.open()}
 				/>
 			)}
+			<DefaultButton 
+			styles={{
+				root: {
+
+				},
+				description: {
+
+				},
+				iconHovered: {
+					backgroundColor: "red"
+				}
+			}}
+			/>
 		</>
 	)
 }
