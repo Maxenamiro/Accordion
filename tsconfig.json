@@ -26,10 +26,13 @@
       "dom",
       "es2015.collection",
       "es2015.promise"
-    ]
+    ],
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.tsx"
-  ]
+    "src/**/*.tsx",
+    "src/declarations.d.ts"
+  ],
 }

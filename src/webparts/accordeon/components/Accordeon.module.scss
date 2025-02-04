@@ -1,43 +1,71 @@
 @import '~@fluentui/react/dist/sass/References.scss';
+.accordeon:nth-child(odd) {
+	background-color: #fff;
+}
+
+.accordeon:nth-child(even) {
+	background-color: #f4f4f4;
+}
+.accordionHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	cursor: pointer;
+}
+
+.arrowIcon {
+	display: inline-block;
+	transition: transform 0.3s ease-in-out;
+}
+
+.open {
+	transform: rotate(180deg);
+}
+.please {
+	display: flex;
+	text-align: center;
+	justify-content: space-between;
+	align-items: center;
+}
+.accordionContent {
+	padding-top: 30px;
+	// background-color: #fff;
+}
+
+.accordionItem {
+	padding: 1px;
+	// background-color: gray;
+}
 
 .accordeon {
-  overflow: hidden;
-  padding: 1em;
-  color: "[theme:bodyText, default: #323130]";
-  color: var(--bodyText);
-  &.teams {
-    font-family: $ms-font-family-fallbacks;
-  }
+	overflow: hidden;
+	padding: 1em;
+	color: '[theme:bodyText, default: #323130]';
+	color: var(--bodyText);
+	&.teams {
+		font-family: $ms-font-family-fallbacks;
+	}
 }
 
 .welcome {
-  text-align: center;
+	text-align: center;
 }
 
 .welcomeImage {
-  width: 100%;
-  max-width: 420px;
+	width: 100%;
+	max-width: 420px;
 }
 
 .links {
-  a {
-    text-decoration: none;
-    color: "[theme:link, default:#03787c]";
-    color: var(--link); // note: CSS Custom Properties support is limited to modern browsers only
+	a {
+		text-decoration: none;
+		color: '[theme:link, default:#03787c]';
+		color: var(--link);
 
-    &:hover {
-      text-decoration: underline;
-      color: "[theme:linkHovered, default: #014446]";
-      color: var(--linkHovered); // note: CSS Custom Properties support is limited to modern browsers only
-    }
-  }
-}
-
-.accordeonStyle {
-  border: 1px solid red;
-  background-color: blue;
-}
-
-.contentStyles {
-  background-color: yellow !important;
+		&:hover {
+			color: '[theme:linkHovered, default: #014446]';
+			color: var(--linkHovered);
+		}
+	}
 }
